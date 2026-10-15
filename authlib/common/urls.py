@@ -140,6 +140,9 @@ def extract_params(raw):
 
 
 def is_valid_url(url: str, fragments_allowed=True):
+    if not isinstance(url, str):
+        return False
+
     try:
         parsed = urlparse.urlparse(url)
     except ValueError:

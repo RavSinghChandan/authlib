@@ -59,6 +59,13 @@ def test_unparsable_authority(url):
     assert is_valid_url(url) is False
 
 
+@pytest.mark.parametrize("url", [None, 123, b"http://provider.test/cb", object()])
+def test_non_str_input(url):
+    """is_valid_url() must not propagate TypeError/AttributeError on non-str input,
+    the same contract test_unparsable_authority holds for ValueError."""
+    assert is_valid_url(url) is False
+
+
 def test_fragments_not_allowed():
     assert is_valid_url("https://provider.test/cb", fragments_allowed=False) is True
     assert (
